@@ -7,9 +7,8 @@
 4. Run `composer install`
 5. Run `php artisan key:generate`
 6. Run `php artisan migrate:fresh --seed` to create the database tables
-7. Run `npm run dev` to build frontend assets (Vite)
-8. Run `php artisan serve` to start the development server
-9. Open your browser and go to `http://localhost:8000` to see the application in action
+7. Run `php artisan serve` to start the development server
+8. Open your browser and go to `http://localhost:8000` to see the application in action
 
 ## Testing
 1. Using phpunit for unit and feature testing
