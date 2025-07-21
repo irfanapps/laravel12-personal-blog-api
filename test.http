@@ -1,0 +1,267 @@
+@host = http://localhost:8000
+@token = 1|Czzj7oPn5vCq7sOp2DX4f9QXAVc99jHIK4thgG7Q90a032b
+@slug = learn-laravel-api-development-20250721-225016
+@catSlug = programming
+@tagSlug = mysql-update
+
+##### AUTHENTICATION & PROFILE #####
+### Register User API
+POST {{host}}/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email" : "user@test.com",
+    "name": "User Apps",
+    "password": "userSecret@25",
+    "password_confirmation": "userSecret@25"
+    
+}
+
+### Login User API
+POST {{host}}/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "user@test.com",
+    "password": "userSecret@25"
+}
+
+### Get Current User API
+GET {{host}}/api/auth/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Update Current User API
+post {{host}}/api/auth/me
+Content-Type: application/json
+//Content-Type: multipart/form-data
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "password": "Newpassword123",
+    "password_confirmation": "Newpassword123",
+    //"avatar" : "http://example.com/storage/avatars/1_avatar_1234567890.jpg"
+}
+
+
+### Logout User API
+POST {{host}}/api/auth/logout
+Accept: application/json
+Authorization: Bearer {{token}}
+
+##### END AUTHENTICATION & PROFILE #####
+
+##### POST #####
+
+### Create Post API
+POST {{host}}/api/posts
+Content-Type: application/json
+//Content-Type: multipart/form-data
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Learn Laravel API Development",
+    "content": "How to make API with laravel Framework and use Mysql / Postgre and connect to frontend to build application",
+    "excerpt": "Tutorial make REST API with Laravel",
+    "category_id": 1,
+    "tags": ["laravel Backend", "api", "backend"],
+    "is_draft": false
+    //"featured_image": "https://www.angon.co.id/wp-content/uploads/2023/10/1686539179.png"
+}
+
+### GEt Post API #search
+GET {{host}}/api/posts?search=laravel
+//GET {{host}}/api/posts?title=test&content=laravel
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Update Post API #slug
+PUT {{host}}/api/posts/{{slug}}
+Content-Type: application/json
+//Content-Type: multipart/form-data
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Learn Laravel API Development Update",
+    "content": "How to make API with laravel and connect to frontend ...",
+    "is_draft": true,
+    "tags": ["laravel", "rest-api"]
+}
+
+### GET Post API Draft #paging
+GET {{host}}/api/posts/drafts?page=1&per_page=5
+Authorization: Bearer {{token}}
+
+### Filter drafts by category
+GET {{host}}/api/posts/drafts?category=technology
+Authorization: Bearer {{token}}
+
+### Search in drafts
+GET {{host}}/api/posts/drafts?search=api
+Authorization: Bearer {{token}}
+
+### Update Post API Published #slug
+POST {{host}}/api/posts/{{slug}}/publish
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Delete Post API #slug
+DELETE {{host}}/api/posts/{{slug}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+##### END POST #####
+
+
+##### CATEGORY #####
+
+### Get Category API
+GET {{host}}/api/categories
+Accept: application/json
+
+### POST Category API
+POST {{host}}/api/categories
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Programming",
+    "description": "Posts about Programming"
+}
+
+### Update Category API #slug
+PUT {{host}}/api/categories/{{catSlug}}
+Content-Type: application/json
+//Content-Type: multipart/form-data
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Programming Update",
+    "description": "Posts about Programming"
+}
+
+### Delete Category API #slug
+DELETE {{host}}/api/categories/{{catSlug}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+##### END CATEGORY #####
+
+##### TAG #####
+
+### Get Tag API
+GET {{host}}/api/tags
+Accept: application/json
+
+### POST Tag API
+POST {{host}}/api/tags
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Codeigniter",
+    "description": "Posts about Programming"
+}
+
+
+### Update Tag API #slug
+PUT {{host}}/api/tags/{{tagSlug}}
+Content-Type: application/json
+//Content-Type: multipart/form-data
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Mysql Update",
+    "description": "Posts about Database"
+}
+
+### Delete Tag API #slug
+DELETE {{host}}/api/tags/{{tagSlug}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Merge Tag API #slug
+POST {{host}}/api/tags/merge
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "from_tags": [1, 2, 3],
+    "to_tag": "programming"
+}
+
+##### END TAG #####
+
+##### COMMENT #####
+
+### Get Comment API
+GET {{host}}/api/comments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Get Show Comment API
+GET {{host}}/api/comments/43
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### POST Comment API
+POST {{host}}/api/comments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "content": "This is a new comment",
+    "post_id": 43
+}
+
+
+### POST Comment Update API
+PUT {{host}}/api/comments/43
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "content": "Updated comment content"
+}
+
+### POST Comment Delete API
+DELETE {{host}}/api/comments/36
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### POST Comment Reply to Comment API
+POST {{host}}/api/comments/43/reply
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "content": "This is a reply to comment 43",
+    "post_id": 43
+}
+
+### POST Like Comment API
+POST {{host}}/api/comments/43/like
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+##### END COMMENT #####
